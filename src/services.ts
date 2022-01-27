@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-
+import StatsAPIError from "./utilities";
 const fetchNHLEndpoint = async (endpoint: string) => {
     const baseUrl = "https://statsapi.web.nhl.com/api/v1";
     try {
@@ -7,8 +7,20 @@ const fetchNHLEndpoint = async (endpoint: string) => {
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
-        return false;
+        throw new StatsAPIError('Data did not return correctly from the NHL API');
     }
+}
+
+export const fetchTeams = async (id: string) => {
+    return await fetchNHLEndpoint(`teams/${id}`);
+}
+
+export const fetchStandings = async (seasonId: string) => {
+    return await fetchNHLEndpoint(`standings?season=${seasonId}`);  
+}
+
+export const fetchSchedule = async (id: string, seasonId: string) => {
+    const result = await fetchNHLEndpoint(`schedule?teamId=${id}&season=${seasonId}&gameType=R`);     
 }
 
 export default fetchNHLEndpoint;

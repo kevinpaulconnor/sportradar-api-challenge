@@ -1,5 +1,6 @@
 import axios from 'axios';
 import fetchNHLEndpoint from '../../src/services';
+import StatsAPIError from "../../src/utilities";
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
@@ -22,6 +23,6 @@ describe('fetchNHLEndpoint', () => {
     }); 
     it('returns false to caller on error', async () => {
         mockedAxios.get.mockRejectedValue('value');
-        await expect(fetchNHLEndpoint('blah')).resolves.toBe(false);
+        await expect(async () => fetchNHLEndpoint('blah')).rejects.toThrow(StatsAPIError)
     }); 
 });
