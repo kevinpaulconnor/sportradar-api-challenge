@@ -1,8 +1,9 @@
 import express from 'express'
-
+import { fetchNHLEndpoint } from './service'
 const app = express()
+
 app.get('/', (req, res) => {
-  res.send('look, a route')
+  fetchNHLEndpoint();
 })
 
 app.listen(8000, () => {
