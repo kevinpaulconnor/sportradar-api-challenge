@@ -4,14 +4,10 @@ const fetchNHLEndpoint = async (endpoint: string) => {
     const baseUrl = "https://statsapi.web.nhl.com/api/v1";
     try {
         const url = `${baseUrl}/${endpoint}`;
-        const data = await axios.get(url);
-        return data.data;
+        const response = await axios.get(url);
+        return response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.log(`Axios error: ${error}`);
-        } else {
-            console.log(`Unknown error: ${error}`);
-        }
+        return false;
     }
 }
 
