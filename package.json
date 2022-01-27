@@ -8,7 +8,9 @@
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon src/index.ts",
     "test:unit": "jest test/unit",
-    "test:integration": "jest test/integration"
+    "test:unit:watch": "jest --watch --coverage false test/unit",   
+    "test:integration": "jest test/integration",
+    "test:integration:watch": "jest --watch --coverage false test/integration"
   },
   "repository": {
     "type": "git",
