@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "start": "npm run build && node build/index.js",
-    "start:dev": "nodemon index.ts",
+    "start:dev": "nodemon src/index.ts",
     "test:unit": "jest test/unit",
     "test:integration": "jest test/integration"
   },
