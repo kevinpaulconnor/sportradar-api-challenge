@@ -81,11 +81,15 @@ export const getAge = (dateString: string, today = new Date()) => {
     return age;
 }
 
-/* construct team object from api calls */
+/* construct player object from api calls */
 export const playerConstructor = (playersAPIData :any) :Player => {
     try {        
         const rawPlayer = playersAPIData[0].people[0];
-        const seasonStats = playersAPIData[1].stats[0].splits[0].stat;
+        let seasonStats;
+        const splits = playersAPIData[1].stats.splits;
+        if (splits) {
+            seasonStats = splits[0].stat;
+        }
         const ret :Player = {
             id: rawPlayer.id, 
             name: rawPlayer.fullName,
@@ -94,11 +98,11 @@ export const playerConstructor = (playersAPIData :any) :Player => {
             rosterNumber: rawPlayer.primaryNumber,
             position: rawPlayer.primaryPosition.name,
             isRookie: rawPlayer.rookie,
-            assists: seasonStats.assists,
-            goals: seasonStats.goals,
-            games: seasonStats.games,
-            hits: seasonStats.hits,
-            points: seasonStats.points,
+            assists: seasonStats ? seasonStats.assists : 0,
+            goals: seasonStats ? seasonStats.goals : 0,
+            games: seasonStats ? seasonStats.games : 0,
+            hits: seasonStats ? seasonStats.hits : 0,
+            points: seasonStats ? seasonStats.points : 0,
         }
         return ret;
     } catch (error) {
