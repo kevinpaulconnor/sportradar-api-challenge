@@ -1,14 +1,8 @@
-import { writeToString } from '@fast-csv/format';
+import { writeToBuffer } from '@fast-csv/format';
 
-const generateCSV = () => {
-    const rows = [
-        {
-            teamName: "Texas",
-            anotherKey: "another key data",
-            mySon: "Paul"
-        }
-    ];
-    writeToString(rows, {headers: true}).then(data => console.log(data));
+const generateCSVBuffer = (item: object) :Promise<Buffer> => {
+    const rows = [item];
+    return writeToBuffer(rows, {headers: true});
 }
 
-export default generateCSV;
+export default generateCSVBuffer;
