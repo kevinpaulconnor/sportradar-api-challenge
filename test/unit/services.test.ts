@@ -21,7 +21,7 @@ describe('fetchNHLEndpoint', () => {
         const data = await fetchNHLEndpoint('blah');
         expect(data).toBe('some data');
     }); 
-    it('returns false to caller on error', async () => {
+    it('throws StatsAPIError on error', async () => {
         mockedAxios.get.mockRejectedValue('value');
         await expect(async () => fetchNHLEndpoint('blah')).rejects.toThrow(StatsAPIError)
     }); 

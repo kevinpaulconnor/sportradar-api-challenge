@@ -1,10 +1,35 @@
-import teamConstructor, { findGameOppName, findTeamInStandings } from '../../src/constructors';
+import teamConstructor, { playerConstructor, getAge, findGameOppName, findTeamInStandings } from '../../src/constructors';
 import { DataParseError } from '../../src/utilities';
 
 describe('teamConstructor', () => {
     it('throws DataParseError on malformed object', async () => {
         expect(() => teamConstructor({badObject: 'blah'})).toThrow(DataParseError)
     }); 
+});
+
+describe('playerConstructor', () => {
+    it('throws DataParseError on malformed object', async () => {
+        expect(() => playerConstructor({badObject: 'blah'})).toThrow(DataParseError)
+    }); 
+});
+
+describe('getAge', () => {
+    const today = new Date("2022-1-27");
+    it('gives right age on birthday', async () => {
+        expect(getAge("1992-1-27", today)).toBe(30);
+    });
+    it('gives right age birthday yesterday', async () => {
+        expect(getAge("1992-1-26", today)).toBe(30);
+    });
+    it('gives right age birthday tomorrow', async () => {
+        expect(getAge("1992-1-28", today)).toBe(29);
+    });
+    it('gives right age birthday leap year', async () => {
+        expect(getAge("2020-2-29", today)).toBe(1);
+    });
+    it('gives right age birthday late in year', async () => {
+        expect(getAge("2000-11-28", today)).toBe(21);
+    });
 });
 
 describe('findGameOppName', () => {

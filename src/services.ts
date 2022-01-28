@@ -24,4 +24,12 @@ export const fetchSchedule = async (id: string, seasonId: string) => {
     return await fetchNHLEndpoint(`schedule?teamId=${id}&season=${seasonId}&gameType=R`);     
 }
 
+export const fetchPeople = async (id: string) => {
+    return await fetchNHLEndpoint(`people/${id}`);     
+}
+
+export const fetchPeopleStats = async (id: string, seasonId: string) => {
+    return await fetchNHLEndpoint(`people/${id}/stats?stats=statsSingleSeason&season=${seasonId}`);     
+}
+
 export default fetchNHLEndpoint;

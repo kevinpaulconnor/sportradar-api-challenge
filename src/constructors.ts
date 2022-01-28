@@ -1,4 +1,4 @@
-import { Team } from "./types";
+import { Team, Player } from "./types";
 import { DataParseError } from "./utilities";
 
 export const findGameOppName = (game : any, id: number) => {
@@ -66,6 +66,36 @@ const teamConstructor = (teamsAPIData :any) :Team => {
             }
             return ret;
         }
+    } catch (error) {
+        throw new DataParseError('Failure parsing api data');
+    }
+}
+
+export const getAge = (dateString: string, today = new Date()) => {
+    let birthDate = new Date(dateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let delta = today.getMonth() - birthDate.getMonth();
+    if (delta < 0 || (delta === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+/* construct team object from api calls */
+export const playerConstructor = (playersAPIData :any) :Player => {
+    try {        
+        const rawPlayer = playersAPIData[0].people[0];
+        // const firstSeasonGame = teamsAPIData[1].dates[0];
+        const ret :Player = {
+            id: rawPlayer.id, 
+            name: rawPlayer.fullName,
+            currentTeamName: rawPlayer.currentTeam ? rawPlayer.currentTeam.name : "None",
+            age: getAge(rawPlayer.birthDate),
+            rosterNumber: rawPlayer.primaryNumber,
+            position: rawPlayer.primaryPosition.name,
+            isRookie: rawPlayer.rookie
+        }
+        return ret;
     } catch (error) {
         throw new DataParseError('Failure parsing api data');
     }
