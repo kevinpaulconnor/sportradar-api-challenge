@@ -10,7 +10,7 @@ app.get('/teams/:seasonId/:id', async (req, res, next) => {
   const teamsAPICalls = [
     fetchTeams(id),
     fetchSchedule(id, seasonId),
-    // fetchStandings(seasonId)
+    fetchStandings(seasonId)
   ];
   await Promise.all(teamsAPICalls).then( values => {
     generateAndServeCSV(teamConstructor(values), res, filenameGenerator(id, seasonId));
@@ -27,8 +27,8 @@ app.get('/testteams/:seasonId/:id', async (req, res, next) => {
   const {id, seasonId } = req.params;
   const teamsAPICalls = [
     // fetchTeams(id),
-    fetchSchedule(id, seasonId),
-    // fetchStandings(seasonId)
+    // fetchSchedule(id, seasonId),
+    fetchStandings(seasonId)
   ];
   await Promise.all(teamsAPICalls).then( values => {
     res.json({
