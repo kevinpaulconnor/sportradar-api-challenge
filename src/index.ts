@@ -9,7 +9,7 @@ app.get('/teams/:seasonId/:id', async (req, res, next) => {
   const {id, seasonId } = req.params;
   const teamsAPICalls = [
     fetchTeams(id),
-    // fetchSchedule(id, seasonId),
+    fetchSchedule(id, seasonId),
     // fetchStandings(seasonId)
   ];
   await Promise.all(teamsAPICalls).then( values => {
@@ -22,6 +22,21 @@ app.get('/teams/:seasonId/:id', async (req, res, next) => {
     */
   }).catch(error => next(error));
 })
+
+app.get('/testteams/:seasonId/:id', async (req, res, next) => {
+  const {id, seasonId } = req.params;
+  const teamsAPICalls = [
+    // fetchTeams(id),
+    fetchSchedule(id, seasonId),
+    // fetchStandings(seasonId)
+  ];
+  await Promise.all(teamsAPICalls).then( values => {
+    res.json({
+      data: values
+    })
+  }).catch(error => next(error));
+})
+
 
 // const errorHandler: ErrorRequestHandler = function(err, req, res, next) {
 //   // If err has no specified error code, set error code to 'Internal Server Error (500)'
