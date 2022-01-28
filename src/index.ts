@@ -1,5 +1,6 @@
 import express, {ErrorRequestHandler} from 'express';
 import { fetchTeams, fetchSchedule, fetchStandings } from './services';
+import generateCSV from './csv';
 const app = express();
 
 app.get('/teams/:seasonId/:id', async (req, res, next) => {
@@ -16,6 +17,10 @@ app.get('/teams/:seasonId/:id', async (req, res, next) => {
       data: teamsAPICalls.length
     })   
   }).catch(error => next(error));
+})
+
+app.get('/csv', async (req, res, next) => {
+  generateCSV();
 })
 
 // const errorHandler: ErrorRequestHandler = function(err, req, res, next) {

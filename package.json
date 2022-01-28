@@ -8,7 +8,7 @@
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon src/index.ts",
     "test:unit": "jest test/unit",
-    "test:unit:watch": "jest --watch --coverage false test/unit",   
+    "test:unit:watch": "jest --watch --coverage false test/unit",
     "test:integration": "jest test/integration",
     "test:integration:watch": "jest --watch --coverage false test/integration"
   },
@@ -25,7 +25,8 @@
   "homepage": "https://github.com/kevinpaulconnor/sportradar-api-challenge#readme",
   "dependencies": {
     "axios": "^0.25.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "fast-csv": "^4.3.6"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
