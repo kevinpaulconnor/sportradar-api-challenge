@@ -28,7 +28,7 @@ app.get('/players/:seasonId/:id', async (req, res, next) => {
   const {id, seasonId } = req.params;
   const calls = [
     fetchPeople(id),
-    // fetchPeopleStats(id, seasonId),
+    fetchPeopleStats(id, seasonId),
   ];
   await Promise.all(calls).then( values => {
     generateAndServeCSV(playerConstructor(values), res, filenameGenerator(id, seasonId));
@@ -39,8 +39,8 @@ app.get('/players/:seasonId/:id', async (req, res, next) => {
 app.get('/testplayers/:seasonId/:id', async (req, res, next) => {
   const {id, seasonId } = req.params;
   const calls = [
-    fetchPeople(id),
-    // fetchPeopleStats(id, seasonId),
+    //fetchPeople(id),
+    fetchPeopleStats(id, seasonId),
   ];
   await Promise.all(calls).then( values => {
     res.json({

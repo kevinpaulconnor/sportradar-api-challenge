@@ -19,9 +19,9 @@ export type Player = {
     rosterNumber: number,
     position: string,
     isRookie: boolean,
-    // assists: number,
-    // goals: number,
-    // games: number,
-    // points: number,
-    // hits: number
+    assists: number,
+    goals: number,
+    games: number,
+    points: number,
+    hits: number
 }
