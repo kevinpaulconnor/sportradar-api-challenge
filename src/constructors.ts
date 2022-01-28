@@ -43,7 +43,12 @@ export const findTeamInStandings = (records: any, id: number) => {
     }
 }
 
-/* construct team object from api calls */
+/* construct team object from api calls 
+ My approach in these "constructors" (maybe that's a weird name) is to avoid typing the direct
+ stats api results as much as possible, and throwing a more general data error if anything goes wrong.
+ I'm then writing unit tests for the more complex calculations in building out the dataset. I feel a
+ little bit like this wasn't quite the right way to set this and up and am curious for feedback
+*/
 const teamConstructor = (teamsAPIData :any) :Team => {
     try {
         const rawTeam = teamsAPIData[0].teams[0];
@@ -71,6 +76,8 @@ const teamConstructor = (teamsAPIData :any) :Team => {
     }
 }
 
+/* this method always gives the players current age, but a bit too late, it occurred to me
+that it should probably instead give the player's age during the requested season */
 export const getAge = (dateString: string, today = new Date()) => {
     let birthDate = new Date(dateString);
     let age = today.getFullYear() - birthDate.getFullYear();
