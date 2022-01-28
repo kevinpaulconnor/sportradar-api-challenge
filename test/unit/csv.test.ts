@@ -1,4 +1,4 @@
-import generateCSVBuffer from '../../src/csv';
+import { generateCSVBuffer } from '../../src/csv';
 
 describe('generateCSV', () => {
     it('generatesCSV Buffer from object', async () => {

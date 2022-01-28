@@ -1,31 +1,26 @@
 import express, {ErrorRequestHandler} from 'express';
 import { fetchTeams, fetchSchedule, fetchStandings } from './services';
-import generateCSVBuffer from './csv';
-import { respondWithAttachingFile } from './utilities';
+import teamConstructor from './constructors';
+import { filenameGenerator } from './utilities';
+import generateAndServeCSV from './csv';
 const app = express();
 
 app.get('/teams/:seasonId/:id', async (req, res, next) => {
-  let data = {};
   const {id, seasonId } = req.params;
   const teamsAPICalls = [
     fetchTeams(id),
-    fetchSchedule(id, seasonId),
-    fetchStandings(seasonId)
+    // fetchSchedule(id, seasonId),
+    // fetchStandings(seasonId)
   ];
   await Promise.all(teamsAPICalls).then( values => {
-    res.json ({
-      success: 'get call succeeded',
-      data: teamsAPICalls.length
-    })   
+    generateAndServeCSV(teamConstructor(values), res, filenameGenerator(id, seasonId));
+    /* this would be a good spot for in-memory key value caching with something 
+      like https://github.com/jaredwray/keyv if this is running on a server,
+      or write to a datastore if it is serverless.
+      Lowest hanging fruit is to cache all previous season results since they won't ever change
+      so we don't need a cache expiration strategy :)
+    */
   }).catch(error => next(error));
-})
-
-app.get('/csv', async (req, res, next) => {
-  generateCSVBuffer({
-    a: 1,
-    b: 2,
-    c: 3
-  }).then(data => respondWithAttachingFile(data, res, 'test.csv'));
 })
 
 // const errorHandler: ErrorRequestHandler = function(err, req, res, next) {
