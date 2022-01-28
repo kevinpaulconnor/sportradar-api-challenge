@@ -1,5 +1,6 @@
 const axios = require('axios').default;
 import StatsAPIError from "./utilities";
+
 const fetchNHLEndpoint = async (endpoint: string) => {
     const baseUrl = "https://statsapi.web.nhl.com/api/v1";
     try {
@@ -20,7 +21,7 @@ export const fetchStandings = async (seasonId: string) => {
 }
 
 export const fetchSchedule = async (id: string, seasonId: string) => {
-    const result = await fetchNHLEndpoint(`schedule?teamId=${id}&season=${seasonId}&gameType=R`);     
+    return await fetchNHLEndpoint(`schedule?teamId=${id}&season=${seasonId}&gameType=R`);     
 }
 
 export default fetchNHLEndpoint;
