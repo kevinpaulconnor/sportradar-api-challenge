@@ -1,17 +1,18 @@
-import Express from 'express';
-
 class StatsAPIError extends Error {
     constructor(message: string) {
         super(message);
         this.name = "StatsAPIError"; 
     }
 }
+export class DataParseError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "DataParseError"; 
+    }
+}
 
-export const respondWithAttachingFile = (contentBytes: Buffer, res: Express.Response, filename: string): void => {
-    res.setHeader("Content-Type", `text/csv`);
-    res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
-    res.status(200).end(contentBytes);
-};
-
+export const filenameGenerator = (id: string, seasonId: string) => {
+    return `${seasonId}-${id}.csv`;
+}
 
 export default StatsAPIError;
